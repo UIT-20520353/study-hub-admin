@@ -4,13 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FormField } from "@/components/ui/form-field";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import type { LoginForm } from "./types/form";
+import { Modal } from "@/components/ui/modal";
 
 const Login: React.FunctionComponent = () => {
   const { t } = useTranslation();
+  const [isShowModal, setShowModal] = useState<boolean>(false);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -30,6 +32,7 @@ const Login: React.FunctionComponent = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
+      setShowModal(true);
       console.log(values);
     },
   });
@@ -90,6 +93,14 @@ const Login: React.FunctionComponent = () => {
       </Card>
 
       <LanguageSwitcher />
+
+      <Modal
+        isOpen={isShowModal}
+        onClose={() => setShowModal(false)}
+        header={{ title: "Hello", showCloseButton: false }}
+      >
+        <h2>Hello</h2>
+      </Modal>
     </div>
   );
 };
