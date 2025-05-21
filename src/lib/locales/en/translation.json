@@ -1,0 +1,43 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "invalidEmail": "Invalid email address",
+    "passwordMismatch": "Passwords do not match",
+    "minLength": "{{field}} must be at least {{min}} characters",
+    "email": {
+      "invalid": "Please enter a valid email address",
+      "required": "Email is required"
+    },
+    "password": {
+      "min": "Password must be at least 6 characters",
+      "required": "Password is required"
+    }
+  },
+  "login": {
+    "welcome": "Welcome Back",
+    "field": {
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholder": {
+        "email": "Enter your email",
+        "password": "Enter your password"
+      }
+    }
+  },
+  "button": {
+    "login": "Login"
+  }
+}

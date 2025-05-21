@@ -1,0 +1,43 @@
+{
+  "common": {
+    "welcome": "Chào mừng",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "register": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "rememberMe": "Ghi nhớ đăng nhập"
+  },
+  "validation": {
+    "required": "{{field}} là bắt buộc",
+    "invalidEmail": "Email không hợp lệ",
+    "passwordMismatch": "Mật khẩu không khớp",
+    "minLength": "{{field}} phải có ít nhất {{min}} ký tự",
+    "email": {
+      "invalid": "Vui lòng nhập email hợp lệ",
+      "required": "Email là bắt buộc"
+    },
+    "password": {
+      "min": "Mật khẩu phải có ít nhất 6 ký tự",
+      "required": "Mật khẩu là bắt buộc"
+    }
+  },
+  "login": {
+    "welcome": "Chào mừng",
+    "field": {
+      "label": {
+        "email": "Email",
+        "password": "Mật khẩu"
+      },
+      "placeholder": {
+        "email": "Nhập email của bạn",
+        "password": "Nhập mật khẩu của bạn"
+      }
+    }
+  },
+  "button": {
+    "login": "Đăng nhập"
+  }
+}
