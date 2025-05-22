@@ -3,54 +3,13 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FormField } from "@/components/ui/form-field";
-import { useFormik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import * as Yup from "yup";
-import type { LoginForm } from "./types/form";
-import { Modal } from "@/components/ui/modal";
+import useLoginForm from "./hooks/use-login-form";
 
 const Login: React.FunctionComponent = () => {
   const { t } = useTranslation();
-  const [isShowModal, setShowModal] = useState<boolean>(false);
-
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email(t("validation.email.invalid"))
-      .required(t("validation.email.required")),
-    password: Yup.string()
-      .min(6, t("validation.password.min"))
-      .required(t("validation.password.required")),
-  });
-
-  const formik = useFormik<LoginForm>({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema,
-    validateOnChange: true,
-    validateOnBlur: true,
-    onSubmit: (values) => {
-      setShowModal(true);
-      console.log(values);
-    },
-  });
-
-  const formFields = [
-    {
-      name: "email",
-      type: "text",
-      label: t("login.field.label.email"),
-      placeholder: t("login.field.placeholder.email"),
-    },
-    {
-      name: "password",
-      type: "password",
-      label: t("login.field.label.password"),
-      placeholder: t("login.field.placeholder.password"),
-    },
-  ] as const;
+  const { formik, formFields, isLoginLoading } = useLoginForm();
 
   return (
     <div className="relative flex items-center justify-center w-full h-screen">
@@ -85,6 +44,7 @@ const Login: React.FunctionComponent = () => {
               className="w-full"
               size="lg"
               variant="default"
+              disabled={isLoginLoading}
             >
               {t("button.login")}
             </Button>
@@ -93,14 +53,6 @@ const Login: React.FunctionComponent = () => {
       </Card>
 
       <LanguageSwitcher />
-
-      <Modal
-        isOpen={isShowModal}
-        onClose={() => setShowModal(false)}
-        header={{ title: "Hello", showCloseButton: false }}
-      >
-        <h2>Hello</h2>
-      </Modal>
     </div>
   );
 };

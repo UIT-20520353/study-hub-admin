@@ -35,9 +35,19 @@
         "email": "Nhập email của bạn",
         "password": "Nhập mật khẩu của bạn"
       }
+    },
+    "error": {
+      "title": "Lỗi"
     }
   },
   "button": {
     "login": "Đăng nhập"
+  },
+  "error": {
+    "validate": {
+      "login": {
+        "invalid-credential": "Email hoặc mật khẩu không chính xác"
+      }
+    }
   }
 }

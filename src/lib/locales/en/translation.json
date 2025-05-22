@@ -35,9 +35,19 @@
         "email": "Enter your email",
         "password": "Enter your password"
       }
+    },
+    "error": {
+      "title": "Error"
     }
   },
   "button": {
     "login": "Login"
+  },
+  "error": {
+    "validate": {
+      "login": {
+        "invalid-credential": "Invalid email or password"
+      }
+    }
   }
 }

@@ -1,14 +1,15 @@
-import { motion, AnimatePresence } from "framer-motion";
-import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
-import { Button } from "./button";
+import type { ModalType } from "@/store/slices/modalSlice";
+import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle, CheckCircle2, Info, X } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface ModalHeaderProps {
   title?: string;
   showCloseButton?: boolean;
   onClose?: () => void;
   className?: string;
+  type?: ModalType;
 }
 
 interface ModalProps {
@@ -18,23 +19,51 @@ interface ModalProps {
   className?: string;
   header?: ModalHeaderProps;
   closeOnBackdropClick?: boolean;
+  type?: ModalType;
 }
+
+const typeStyles = {
+  success: {
+    icon: CheckCircle2,
+    iconColor: "text-green-500",
+    borderColor: "border-green-500",
+    bgColor: "bg-green-50",
+  },
+  error: {
+    icon: AlertCircle,
+    iconColor: "text-red-500",
+    borderColor: "border-red-500",
+    bgColor: "bg-red-50",
+  },
+  info: {
+    icon: Info,
+    iconColor: "text-blue-500",
+    borderColor: "border-blue-500",
+    bgColor: "bg-blue-50",
+  },
+};
 
 const ModalHeader = ({
   title,
   showCloseButton = true,
   onClose,
   className,
+  type = "info",
 }: ModalHeaderProps) => {
   if (!title && !showCloseButton) return null;
 
+  const Icon = typeStyles[type].icon;
+
   return (
     <div className={cn("flex items-center justify-between mb-4", className)}>
-      {title && <h2 className="text-xl font-semibold">{title}</h2>}
+      <div className="flex items-center gap-2">
+        <Icon className={cn("w-5 h-5", typeStyles[type].iconColor)} />
+        {title && <h2 className="text-xl font-semibold">{title}</h2>}
+      </div>
       {showCloseButton && (
-        <Button type="button" variant="ghost" size="icon" onClick={onClose}>
-          <X className="w-5 h-5" />
-        </Button>
+        <button className="cursor-pointer" type="button" onClick={onClose}>
+          <X className="w-4 h-4" />
+        </button>
       )}
     </div>
   );
@@ -47,6 +76,7 @@ export const Modal = ({
   className,
   header,
   closeOnBackdropClick = true,
+  type = "info",
 }: ModalProps) => {
   return (
     <AnimatePresence>
@@ -69,10 +99,15 @@ export const Modal = ({
               "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50",
               "bg-white rounded-lg shadow-lg p-6",
               "w-full max-w-md",
+              "border-2",
+              typeStyles[type].borderColor,
+              typeStyles[type].bgColor,
               className
             )}
           >
-            {header && <ModalHeader {...header} onClose={onClose} />}
+            {header && (
+              <ModalHeader {...header} type={type} onClose={onClose} />
+            )}
             {children}
           </motion.div>
         </>
