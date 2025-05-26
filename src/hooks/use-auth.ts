@@ -24,6 +24,12 @@ const useAuth = () => {
     }
   }, [dispatch, navigate]);
 
+  const logout = useCallback(() => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    dispatch(setUser(null));
+    navigate(ROUTES.login);
+  }, [dispatch, navigate]);
+
   useEffect(() => {
     const token = localStorage.getItem(ACCESS_TOKEN_KEY);
     if (!token) {
@@ -33,7 +39,7 @@ const useAuth = () => {
     }
   }, [navigate, token, getUserInfo]);
 
-  return { user };
+  return { user, logout };
 };
 
 export default useAuth;

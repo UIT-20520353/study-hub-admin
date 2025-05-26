@@ -41,8 +41,10 @@
     }
   },
   "button": {
-    "login": "Login"
+    "login": "Login",
+    "logout": "Logout"
   },
+  "sidebar": { "categories": "Categories" },
   "error": {
     "validate": {
       "login": {

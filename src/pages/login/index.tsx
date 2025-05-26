@@ -1,11 +1,11 @@
 import { StudyHubLogo } from "@/components/icons";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FormField } from "@/components/ui/form-field";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useLoginForm from "./hooks/use-login-form";
+import { Button } from "@/components/common/button";
 
 const Login: React.FunctionComponent = () => {
   const { t } = useTranslation();
@@ -41,10 +41,9 @@ const Login: React.FunctionComponent = () => {
             ))}
             <Button
               type="submit"
+              variant="primary"
               className="w-full"
-              size="lg"
-              variant="default"
-              disabled={isLoginLoading}
+              loading={isLoginLoading}
             >
               {t("button.login")}
             </Button>

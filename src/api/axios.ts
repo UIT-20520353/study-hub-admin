@@ -1,6 +1,7 @@
 import { ACCESS_TOKEN_KEY } from "@/constants/app";
 import type { IResponse, IResponseError } from "@/types/http";
 import axios, { AxiosError } from "axios";
+import qs from "qs";
 
 interface ErrorResponse {
   detail?: string;
@@ -9,6 +10,7 @@ interface ErrorResponse {
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8082/api",
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
 
 axiosInstance.interceptors.request.use(

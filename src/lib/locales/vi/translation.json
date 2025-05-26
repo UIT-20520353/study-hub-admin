@@ -24,6 +24,7 @@
       "required": "Mật khẩu là bắt buộc"
     }
   },
+  "sidebar": { "categories": "Danh mục" },
   "login": {
     "welcome": "Chào mừng",
     "field": {
@@ -41,7 +42,8 @@
     }
   },
   "button": {
-    "login": "Đăng nhập"
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất"
   },
   "error": {
     "validate": {

@@ -1,9 +1,12 @@
+import { AvatarDropdown } from "@/components/common/avatar-dropdown";
 import { StudyHubLogo } from "@/components/icons";
-import useAuth from "@/hooks/use-auth";
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import { motion } from "framer-motion";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ROUTES } from "@/constants/app";
+import useAuth from "@/hooks/use-auth";
+import { motion } from "framer-motion";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { NavLink, Outlet } from "react-router-dom";
 
 interface SidebarItemProps {
   to: string;
@@ -49,7 +52,8 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ to, children }) => {
 };
 
 const AdminLayout: React.FC = () => {
-  const { user } = useAuth();
+  const { t } = useTranslation();
+  const { user, logout } = useAuth();
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -59,11 +63,9 @@ const AdminLayout: React.FC = () => {
             <StudyHubLogo className="w-10 h-10" />
             <h1 className="text-xl font-bold">Study Hub</h1>
           </div>
-          <div className="flex items-center gap-4">
-            <span>{user?.fullName}</span>
-            <button className="text-sm text-gray-600 hover:text-gray-900">
-              Logout
-            </button>
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher variant="icon-only" position="relative" />
+            {user && <AvatarDropdown user={user} onLogout={logout} />}
           </div>
         </div>
       </header>
@@ -82,15 +84,14 @@ const AdminLayout: React.FC = () => {
               },
             }}
           >
-            <SidebarItem to={ROUTES.dashboard}>Dashboard</SidebarItem>
-            <SidebarItem to={ROUTES.categories}>Categories</SidebarItem>
-            <SidebarItem to={ROUTES.users}>Users</SidebarItem>
-            <SidebarItem to={ROUTES.courses}>Courses</SidebarItem>
+            <SidebarItem to={ROUTES.categories}>
+              {t("sidebar.categories")}
+            </SidebarItem>
           </motion.ul>
         </nav>
       </aside>
 
-      <main className="p-6 pt-16 ml-64">
+      <main className="p-6 pt-20 ml-64">
         <Outlet />
       </main>
     </div>

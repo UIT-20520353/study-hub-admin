@@ -8,3 +8,11 @@ export interface IResponse<T> {
   ok: boolean;
   error?: IResponseError;
 }
+
+export interface IListResponse<T> {
+  totalPages: number;
+  totalElements: number;
+  items: T[];
+  pageSize: number;
+  currentPage: number;
+}
