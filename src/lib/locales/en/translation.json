@@ -42,14 +42,36 @@
   },
   "button": {
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "goBack": "Go back",
+    "edit": "Edit"
   },
-  "sidebar": { "categories": "Categories" },
+  "sidebar": {
+    "categories": "Categories",
+    "universities": "Universities"
+  },
   "error": {
     "validate": {
       "login": {
         "invalid-credential": "Invalid email or password"
       }
     }
+  },
+  "university": {
+    "introduction": "Introduction",
+    "contactInfo": "Contact Information",
+    "address": "Address",
+    "website": "Website",
+    "emailDomain": "Email Domain",
+    "quickInfo": "Quick Info",
+    "universityId": "University ID",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "systemInfo": "System Information",
+    "createdAt": "Created At",
+    "updatedAt": "Last Updated",
+    "noInfo": "No information available",
+    "currentlyActive": "Currently Active"
   }
 }

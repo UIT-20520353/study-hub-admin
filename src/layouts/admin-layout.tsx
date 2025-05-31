@@ -1,12 +1,13 @@
+import { useGetUserInfo } from "@/api/authenticationApi";
 import { AvatarDropdown } from "@/components/common/avatar-dropdown";
 import { StudyHubLogo } from "@/components/icons";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { ROUTES } from "@/constants/app";
-import useAuth from "@/hooks/use-auth";
+import { ACCESS_TOKEN_KEY, ROUTES } from "@/constants/app";
+import { queryClient } from "@/main";
 import { motion } from "framer-motion";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 interface SidebarItemProps {
   to: string;
@@ -53,7 +54,14 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ to, children }) => {
 
 const AdminLayout: React.FC = () => {
   const { t } = useTranslation();
-  const { user, logout } = useAuth();
+  const { data: response } = useGetUserInfo();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    queryClient.removeQueries();
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    navigate(ROUTES.login);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -65,7 +73,9 @@ const AdminLayout: React.FC = () => {
           </div>
           <div className="flex items-center gap-2">
             <LanguageSwitcher variant="icon-only" position="relative" />
-            {user && <AvatarDropdown user={user} onLogout={logout} />}
+            {response?.body && (
+              <AvatarDropdown user={response.body} onLogout={logout} />
+            )}
           </div>
         </div>
       </header>
@@ -86,6 +96,9 @@ const AdminLayout: React.FC = () => {
           >
             <SidebarItem to={ROUTES.categories}>
               {t("sidebar.categories")}
+            </SidebarItem>
+            <SidebarItem to={ROUTES.universities}>
+              {t("sidebar.universities")}
             </SidebarItem>
           </motion.ul>
         </nav>

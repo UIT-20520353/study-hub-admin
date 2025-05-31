@@ -24,7 +24,10 @@
       "required": "Mật khẩu là bắt buộc"
     }
   },
-  "sidebar": { "categories": "Danh mục" },
+  "sidebar": {
+    "categories": "Danh mục",
+    "universities": "Trường đại học"
+  },
   "login": {
     "welcome": "Chào mừng",
     "field": {
@@ -43,7 +46,9 @@
   },
   "button": {
     "login": "Đăng nhập",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "goBack": "Quay lại",
+    "edit": "Chỉnh sửa"
   },
   "error": {
     "validate": {
@@ -51,5 +56,22 @@
         "invalid-credential": "Email hoặc mật khẩu không chính xác"
       }
     }
+  },
+  "university": {
+    "introduction": "Giới thiệu",
+    "contactInfo": "Thông tin liên hệ",
+    "address": "Địa chỉ",
+    "website": "Website",
+    "emailDomain": "Email Domain",
+    "quickInfo": "Thông tin nhanh",
+    "universityId": "ID Trường",
+    "status": "Trạng thái",
+    "active": "Hoạt động",
+    "inactive": "Ngừng hoạt động",
+    "systemInfo": "Thông tin hệ thống",
+    "createdAt": "Ngày tạo",
+    "updatedAt": "Cập nhật lần cuối",
+    "noInfo": "Không có thông tin",
+    "currentlyActive": "Đang hoạt động"
   }
 }

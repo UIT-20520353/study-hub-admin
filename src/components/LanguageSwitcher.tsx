@@ -76,7 +76,7 @@ export const LanguageSwitcher: FunctionComponent<LanguageSwitcherProps> = ({
       <div
         className={cn(
           "relative",
-          position === "fixed" && "fixed top-5 right-5 z-50",
+          position === "fixed" && "fixed top-5 right-5 z-50 overflow-hidden",
           className
         )}
         data-language-switcher
@@ -111,7 +111,7 @@ export const LanguageSwitcher: FunctionComponent<LanguageSwitcherProps> = ({
               transition={{ duration: 0.15, ease: "easeOut" }}
               className={cn(
                 "absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-200",
-                "py-1 z-50"
+                "py-1 z-50 overflow-hidden"
               )}
             >
               {languages.map((language) => (
@@ -125,7 +125,7 @@ export const LanguageSwitcher: FunctionComponent<LanguageSwitcherProps> = ({
                     currentLanguage.code === language.code &&
                       "bg-blue-50 text-blue-600"
                   )}
-                  whileHover={{ x: 4 }}
+                  whileHover={{ backgroundColor: "#f9fafb", scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
                   <span className="text-lg">{language.flag}</span>
@@ -173,7 +173,7 @@ export const LanguageSwitcher: FunctionComponent<LanguageSwitcherProps> = ({
               transition={{ duration: 0.15, ease: "easeOut" }}
               className={cn(
                 "absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-200",
-                "py-1 z-50"
+                "py-1 z-50 overflow-hidden"
               )}
             >
               {languages.map((language) => (
@@ -187,7 +187,7 @@ export const LanguageSwitcher: FunctionComponent<LanguageSwitcherProps> = ({
                     currentLanguage.code === language.code &&
                       "bg-blue-50 text-blue-600"
                   )}
-                  whileHover={{ x: 4 }}
+                  whileHover={{ backgroundColor: "#f9fafb", scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
                   <span className="text-lg">{language.flag}</span>
@@ -245,7 +245,7 @@ export const LanguageSwitcher: FunctionComponent<LanguageSwitcherProps> = ({
             transition={{ duration: 0.2, ease: "easeOut" }}
             className={cn(
               "absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-200/50",
-              "py-2 z-50 backdrop-blur-sm"
+              "py-2 z-50 backdrop-blur-sm overflow-hidden"
             )}
           >
             <div className="px-3 py-2 border-b border-gray-100">
@@ -254,36 +254,39 @@ export const LanguageSwitcher: FunctionComponent<LanguageSwitcherProps> = ({
               </p>
             </div>
 
-            {languages.map((language, index) => (
-              <motion.button
-                key={language.code}
-                onClick={() => changeLanguage(language.code)}
-                className={cn(
-                  "w-full flex items-center space-x-3 px-4 py-3 text-sm text-left",
-                  "hover:bg-gray-50 focus:outline-none focus:bg-gray-50",
-                  "transition-colors duration-150",
-                  currentLanguage.code === language.code &&
-                    "bg-blue-50 text-blue-600"
-                )}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ x: 4 }}
-              >
-                <span className="text-xl">{language.flag}</span>
-                <div className="flex-1">
-                  <p className="font-medium">{language.nativeName}</p>
-                  <p className="text-xs text-gray-500">{language.name}</p>
-                </div>
-                {currentLanguage.code === language.code && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="w-2 h-2 bg-blue-500 rounded-full"
-                  />
-                )}
-              </motion.button>
-            ))}
+            <div className="px-2">
+              {languages.map((language, index) => (
+                <motion.button
+                  key={language.code}
+                  onClick={() => changeLanguage(language.code)}
+                  className={cn(
+                    "w-full flex items-center space-x-3 px-3 py-3 text-sm text-left rounded-lg mx-0",
+                    "hover:bg-gray-50 focus:outline-none focus:bg-gray-50",
+                    "transition-colors duration-150",
+                    currentLanguage.code === language.code &&
+                      "bg-blue-50 text-blue-600"
+                  )}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="text-xl">{language.flag}</span>
+                  <div className="flex-1">
+                    <p className="font-medium">{language.nativeName}</p>
+                    <p className="text-xs text-gray-500">{language.name}</p>
+                  </div>
+                  {currentLanguage.code === language.code && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="w-2 h-2 bg-blue-500 rounded-full"
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

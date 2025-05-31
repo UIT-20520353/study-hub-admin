@@ -4,6 +4,8 @@ export const API_URLS = {
   login: "/auth/login",
   getUserInfo: "/user/profile",
   getCategories: "/admin/categories",
+  getUniversities: "/admin/universities",
+  getUniversityDetail: (id: string | number) => `/admin/universities/${id}`,
 };
 
 export const ROUTES = {
@@ -13,6 +15,8 @@ export const ROUTES = {
   users: "/users",
   courses: "/courses",
   dashboard: "/dashboard",
+  universities: "/universities",
+  universityDetail: (id: string | number) => `/universities/${id}`,
 };
 
 export const DATETIME_FORMAT = "dd/MM/yyyy HH:mm:ss";

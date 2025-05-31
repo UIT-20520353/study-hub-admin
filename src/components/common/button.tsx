@@ -207,23 +207,23 @@ const Button: React.FC<ButtonProps> = ({
         >
           <Loader2 className={sizeStyles[size].icon} />
         </motion.div>
-      ) : leftIcon ? (
-        <span className={sizeStyles[size].icon}>{leftIcon}</span>
-      ) : null}
-
-      {/* Button Text */}
-      {!iconOnly && children && (
-        <span className={loading ? "opacity-70" : ""}>{children}</span>
-      )}
-
-      {/* Right Icon */}
-      {!loading && rightIcon && (
-        <span className={sizeStyles[size].icon}>{rightIcon}</span>
-      )}
-
-      {/* Icon Only Content */}
-      {iconOnly && !loading && (leftIcon || rightIcon) && (
-        <span className={sizeStyles[size].icon}>{leftIcon || rightIcon}</span>
+      ) : (
+        <>
+          {!iconOnly && leftIcon && (
+            <span className={sizeStyles[size].icon}>{leftIcon}</span>
+          )}
+          {!iconOnly && children && (
+            <span className={loading ? "opacity-70" : ""}>{children}</span>
+          )}
+          {!iconOnly && rightIcon && (
+            <span className={sizeStyles[size].icon}>{rightIcon}</span>
+          )}
+          {iconOnly && (leftIcon || rightIcon) && (
+            <span className={sizeStyles[size].icon}>
+              {leftIcon || rightIcon}
+            </span>
+          )}
+        </>
       )}
     </motion.button>
   );

@@ -102,7 +102,7 @@ export const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   ];
 
   return (
-    <div className={clsx("relative", className)} ref={dropdownRef}>
+    <div className={clsx("relative z-30", className)} ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className={clsx(
