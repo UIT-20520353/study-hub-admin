@@ -8,7 +8,12 @@
     "password": "Mật khẩu",
     "confirmPassword": "Xác nhận mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
-    "rememberMe": "Ghi nhớ đăng nhập"
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "noResultsFound": "Không tìm thấy kết quả",
+    "noData": "Không có dữ liệu",
+    "success": {
+      "title": "Thành công"
+    }
   },
   "validation": {
     "required": "{{field}} là bắt buộc",
@@ -22,6 +27,47 @@
     "password": {
       "min": "Mật khẩu phải có ít nhất 6 ký tự",
       "required": "Mật khẩu là bắt buộc"
+    },
+    "university": {
+      "name": {
+        "required": "Tên trường là bắt buộc",
+        "maxLength": "Tên trường không được vượt quá 100 ký tự"
+      },
+      "shortName": {
+        "required": "Tên viết tắt là bắt buộc",
+        "maxLength": "Tên viết tắt không được vượt quá 20 ký tự"
+      },
+      "emailDomain": {
+        "required": "Email domain là bắt buộc",
+        "maxLength": "Email domain không được vượt quá 100 ký tự",
+        "invalid": "Vui lòng nhập domain hợp lệ (ví dụ: university.edu.vn)"
+      },
+      "address": {
+        "maxLength": "Địa chỉ không được vượt quá 500 ký tự"
+      },
+      "city": {
+        "maxLength": "Thành phố không được vượt quá 50 ký tự"
+      },
+      "website": {
+        "maxLength": "Website không được vượt quá 100 ký tự",
+        "invalid": "Vui lòng nhập URL hợp lệ"
+      },
+      "description": {
+        "maxLength": "Mô tả không được vượt quá 1000 ký tự"
+      },
+      "status": {
+        "required": "Trạng thái là bắt buộc"
+      }
+    },
+    "file": {
+      "invalidType": {
+        "title": "Loại file không hợp lệ",
+        "content": "Vui lòng chọn file ảnh (JPG, PNG, GIF)"
+      },
+      "sizeTooBig": {
+        "title": "File quá lớn",
+        "content": "Kích thước file không được vượt quá 2MB"
+      }
     }
   },
   "sidebar": {
@@ -48,16 +94,85 @@
     "login": "Đăng nhập",
     "logout": "Đăng xuất",
     "goBack": "Quay lại",
-    "edit": "Chỉnh sửa"
+    "edit": "Chỉnh sửa",
+    "cancel": "Hủy",
+    "create": "Tạo",
+    "clearFilters": "Xóa bộ lọc",
+    "filter": "Lọc",
+    "delete": "Xóa",
+    "deleting": "Đang xóa...",
+    "confirm": "Xác nhận",
+    "updating": "Đang cập nhật...",
+    "changeStatus": "Thay đổi trạng thái",
+    "save": "Lưu",
+    "saving": "Đang lưu..."
   },
   "error": {
     "validate": {
       "login": {
         "invalid-credential": "Email hoặc mật khẩu không chính xác"
+      },
+      "university": {
+        "email-domain": {
+          "exists": "Email domain đã tồn tại",
+          "required": "Email domain là bắt buộc"
+        },
+        "name": {
+          "exists": "Tên trường đã tồn tại"
+        }
       }
-    }
+    },
+    "title": "Lỗi",
+    "generic": "Đã xảy ra lỗi. Vui lòng thử lại."
   },
   "university": {
+    "edit": {
+      "title": "Chỉnh sửa trường đại học",
+      "subtitle": "Chỉnh sửa thông tin trường đại học",
+      "success": {
+        "title": "Thành công",
+        "content": "Trường đại học đã được cập nhật thành công!"
+      }
+    },
+    "delete": {
+      "title": "Xóa trường đại học",
+      "subtitle": "Hành động này không thể được hoàn tác",
+      "content": "Bạn có chắc chắn muốn xóa ",
+      "warning": {
+        "title": "Cảnh báo",
+        "line1": "Đăng ký sinh viên mới sẽ bị vô hiệu hóa",
+        "line2": "Tài khoản hiện có sẽ vẫn hoạt động",
+        "line3": "Hành động này không thể được hoàn tác"
+      },
+      "success": {
+        "content": "Trường đại học đã được xóa thành công!"
+      }
+    },
+    "changeStatus": {
+      "title": "Thay đổi trạng thái",
+      "subtitle": "Hành động này không thể được hoàn tác",
+      "content": {
+        "ACTIVE": "Bạn có chắc chắn muốn vô hiệu hóa ",
+        "INACTIVE": "Bạn có chắc chắn muốn kích hoạt "
+      },
+      "warning": {
+        "title": "Cảnh báo",
+        "line1": "Đăng ký sinh viên mới sẽ bị vô hiệu hóa",
+        "line2": "Tài khoản hiện có sẽ vẫn hoạt động",
+        "line3": "Hành động này không thể được hoàn tác",
+        "line4": "Đăng ký sinh viên mới sẽ được kích hoạt"
+      },
+      "success": {
+        "content": "Trạng thái trường đại học đã được thay đổi thành công!"
+      }
+    },
+    "search": {
+      "placeholder": "Tìm kiếm theo tên"
+    },
+    "management": {
+      "title": "Quản lý trường đại học",
+      "subtitle": "Quản lý trường đại học trong hệ thống"
+    },
     "introduction": "Giới thiệu",
     "contactInfo": "Thông tin liên hệ",
     "address": "Địa chỉ",
@@ -66,12 +181,94 @@
     "quickInfo": "Thông tin nhanh",
     "universityId": "ID Trường",
     "status": "Trạng thái",
-    "active": "Hoạt động",
-    "inactive": "Ngừng hoạt động",
     "systemInfo": "Thông tin hệ thống",
     "createdAt": "Ngày tạo",
     "updatedAt": "Cập nhật lần cuối",
     "noInfo": "Không có thông tin",
-    "currentlyActive": "Đang hoạt động"
+    "currentlyActive": "Đang hoạt động",
+    "ACTIVE": "Hoạt động",
+    "INACTIVE": "Ngừng hoạt động",
+    "DELETED": "Đã xóa",
+    "create": {
+      "title": "Tạo trường đại học mới",
+      "subtitle": "Thêm trường đại học mới vào hệ thống",
+      "success": {
+        "title": "Thành công",
+        "content": "Trường đại học đã được tạo thành công!"
+      },
+      "error": {
+        "title": "Lỗi",
+        "content": "Không thể tạo trường đại học. Vui lòng thử lại."
+      },
+      "button": "Tạo trường đại học"
+    },
+    "section": {
+      "basicInfo": "Thông tin cơ bản",
+      "locationInfo": "Thông tin vị trí",
+      "additionalInfo": "Thông tin bổ sung",
+      "logo": "Logo trường đại học"
+    },
+    "field": {
+      "label": {
+        "name": "Tên trường",
+        "shortName": "Tên viết tắt",
+        "emailDomain": "Email domain",
+        "address": "Địa chỉ",
+        "city": "Thành phố",
+        "website": "Website",
+        "description": "Mô tả",
+        "status": "Trạng thái"
+      },
+      "placeholder": {
+        "name": "Nhập tên trường đại học",
+        "shortName": "Nhập tên viết tắt (ví dụ: MIT, VNU)",
+        "emailDomain": "ví dụ: university.edu.vn",
+        "address": "Nhập địa chỉ đầy đủ",
+        "city": "Nhập tên thành phố",
+        "website": "Nhập URL website",
+        "description": "Nhập mô tả trường đại học..."
+      },
+      "helper": {
+        "emailDomain": "Domain được sử dụng để xác thực email của sinh viên (ví dụ: sinh viên có @university.edu.vn)"
+      }
+    },
+    "logo": {
+      "current": "Logo hiện tại",
+      "new": "Logo mới",
+      "replace": "Thay đổi logo",
+      "file-name": "Tên file",
+      "file-size": "Kích thước file",
+      "placeholder": "Không có logo được tải lên",
+      "upload": "Tải lên logo",
+      "change": "Thay đổi logo",
+      "guidelines": "Hướng dẫn",
+      "guideline": {
+        "format": "Định dạng JPG, PNG, GIF",
+        "size": "Tối đa 2MB",
+        "resolution": "Đề xuất 200x200px"
+      }
+    }
+  },
+  "table": {
+    "header": {
+      "id": "ID",
+      "name": "Tên trường",
+      "shortName": "Tên viết tắt",
+      "address": "Địa chỉ",
+      "city": "Thành phố",
+      "website": "Website",
+      "status": "Trạng thái",
+      "action": "Hành động"
+    }
+  },
+  "pagination": {
+    "previous": "Trước",
+    "next": "Sau"
+  },
+  "filter": {
+    "allStatus": "Tất cả trạng thái",
+    "name": "Tên",
+    "active-filters": "Bộ lọc đang hoạt động",
+    "status": "Trạng thái"
   }
 }

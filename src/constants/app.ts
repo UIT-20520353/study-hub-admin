@@ -6,6 +6,11 @@ export const API_URLS = {
   getCategories: "/admin/categories",
   getUniversities: "/admin/universities",
   getUniversityDetail: (id: string | number) => `/admin/universities/${id}`,
+  createUniversity: "/admin/universities",
+  deleteUniversity: (id: string | number) => `/admin/universities/${id}`,
+  changeStatusUniversity: (id: string | number) =>
+    `/admin/universities/${id}/status`,
+  updateUniversity: (id: string | number) => `/admin/universities/${id}`,
 };
 
 export const ROUTES = {
@@ -17,6 +22,8 @@ export const ROUTES = {
   dashboard: "/dashboard",
   universities: "/universities",
   universityDetail: (id: string | number) => `/universities/${id}`,
+  universityEdit: (id: string | number) => `/universities/${id}/edit`,
+  universityCreate: "/universities/create",
 };
 
 export const DATETIME_FORMAT = "dd/MM/yyyy HH:mm:ss";

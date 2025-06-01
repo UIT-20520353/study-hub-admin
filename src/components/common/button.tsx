@@ -12,7 +12,10 @@ interface ButtonProps {
     | "ghost"
     | "destructive"
     | "success"
-    | "gradient";
+    | "gradient"
+    | "warning"
+    | "emerald"
+    | "green";
   size?: "sm" | "md" | "lg" | "xl";
   loading?: boolean;
   disabled?: boolean;
@@ -104,6 +107,12 @@ const Button: React.FC<ButtonProps> = ({
       "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-green-500/25",
     gradient:
       "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 focus:ring-blue-500 shadow-lg",
+    warning:
+      "bg-yellow-500 text-black hover:bg-yellow-600 focus:ring-yellow-500 shadow-yellow-500/25",
+    emerald:
+      "bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500 shadow-emerald-500/25",
+    green:
+      "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-green-500/25",
   };
 
   // Rounded styles

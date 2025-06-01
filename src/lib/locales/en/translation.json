@@ -8,7 +8,12 @@
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "forgotPassword": "Forgot Password?",
-    "rememberMe": "Remember Me"
+    "rememberMe": "Remember Me",
+    "noResultsFound": "No results found",
+    "noData": "No data",
+    "success": {
+      "title": "Success"
+    }
   },
   "validation": {
     "required": "{{field}} is required",
@@ -22,6 +27,47 @@
     "password": {
       "min": "Password must be at least 6 characters",
       "required": "Password is required"
+    },
+    "university": {
+      "name": {
+        "required": "University name is required",
+        "maxLength": "University name must not exceed 100 characters"
+      },
+      "shortName": {
+        "required": "Short name is required",
+        "maxLength": "Short name must not exceed 20 characters"
+      },
+      "emailDomain": {
+        "required": "Email domain is required",
+        "maxLength": "Email domain must not exceed 100 characters",
+        "invalid": "Please enter a valid domain (e.g., university.edu.vn)"
+      },
+      "address": {
+        "maxLength": "Address must not exceed 500 characters"
+      },
+      "city": {
+        "maxLength": "City must not exceed 50 characters"
+      },
+      "website": {
+        "maxLength": "Website must not exceed 100 characters",
+        "invalid": "Please enter a valid URL"
+      },
+      "description": {
+        "maxLength": "Description must not exceed 1000 characters"
+      },
+      "status": {
+        "required": "Status is required"
+      }
+    },
+    "file": {
+      "invalidType": {
+        "title": "Invalid File Type",
+        "content": "Please select an image file (JPG, PNG, GIF)"
+      },
+      "sizeTooBig": {
+        "title": "File Too Large",
+        "content": "File size must not exceed 2MB"
+      }
     }
   },
   "login": {
@@ -44,7 +90,18 @@
     "login": "Login",
     "logout": "Logout",
     "goBack": "Go back",
-    "edit": "Edit"
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "create": "Create",
+    "clearFilters": "Clear filters",
+    "filter": "Filter",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "confirm": "Confirm",
+    "updating": "Updating...",
+    "changeStatus": "Change status",
+    "save": "Save",
+    "saving": "Saving..."
   },
   "sidebar": {
     "categories": "Categories",
@@ -54,10 +111,68 @@
     "validate": {
       "login": {
         "invalid-credential": "Invalid email or password"
+      },
+      "university": {
+        "email-domain": {
+          "exists": "Email domain already exists",
+          "required": "Email domain is required"
+        },
+        "name": {
+          "exists": "University name already exists"
+        }
       }
-    }
+    },
+    "title": "Error",
+    "generic": "Something went wrong. Please try again."
   },
   "university": {
+    "edit": {
+      "title": "Edit University",
+      "subtitle": "Edit university information",
+      "success": {
+        "title": "Success",
+        "content": "University updated successfully!"
+      }
+    },
+    "delete": {
+      "title": "Delete University",
+      "subtitle": "This action cannot be undone",
+      "content": "Are you sure you want to delete ",
+      "warning": {
+        "title": "Warning",
+        "line1": "New student registrations will be disabled",
+        "line2": "Existing accounts will remain active",
+        "line3": "This action cannot be undone"
+      },
+      "success": {
+        "content": "University has been deleted successfully!"
+      }
+    },
+    "changeStatus": {
+      "title": "Change Status",
+      "subtitle": "This action cannot be undone",
+      "content": {
+        "ACTIVE": "Are you sure you want to deactivate ",
+        "INACTIVE": "Are you sure you want to activate "
+      },
+      "warning": {
+        "title": "Warning",
+        "line1": "New student registrations will be disabled",
+        "line2": "Existing accounts will remain active",
+        "line3": "This action cannot be undone",
+        "line4": "New student registrations will be enabled"
+      },
+      "success": {
+        "content": "University status has been changed successfully!"
+      }
+    },
+    "search": {
+      "placeholder": "Search by name"
+    },
+    "management": {
+      "title": "University Management",
+      "subtitle": "Manage universities in the system"
+    },
     "introduction": "Introduction",
     "contactInfo": "Contact Information",
     "address": "Address",
@@ -72,6 +187,90 @@
     "createdAt": "Created At",
     "updatedAt": "Last Updated",
     "noInfo": "No information available",
-    "currentlyActive": "Currently Active"
+    "currentlyActive": "Currently Active",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "DELETED": "Deleted",
+    "create": {
+      "title": "Create New University",
+      "subtitle": "Add a new university to the system",
+      "success": {
+        "title": "Success",
+        "content": "University created successfully!"
+      },
+      "error": {
+        "title": "Error",
+        "content": "Failed to create university. Please try again."
+      },
+      "button": "Create University"
+    },
+    "section": {
+      "basicInfo": "Basic Information",
+      "locationInfo": "Location Information",
+      "additionalInfo": "Additional Information",
+      "logo": "University Logo"
+    },
+    "field": {
+      "label": {
+        "name": "University Name",
+        "shortName": "Short Name",
+        "emailDomain": "Email Domain",
+        "address": "Address",
+        "city": "City",
+        "website": "Website",
+        "description": "Description",
+        "status": "Status"
+      },
+      "placeholder": {
+        "name": "Enter university full name",
+        "shortName": "Enter short name (e.g., MIT, VNU)",
+        "emailDomain": "e.g., university.edu.vn",
+        "address": "Enter full address",
+        "city": "Enter city name",
+        "website": "Enter website URL",
+        "description": "Enter university description..."
+      },
+      "helper": {
+        "emailDomain": "Domain used for student email validation (e.g., students with @university.edu.vn)"
+      }
+    },
+    "logo": {
+      "current": "Current logo",
+      "new": "New logo",
+      "replace": "Replace logo",
+      "file-name": "File name",
+      "file-size": "File size",
+      "placeholder": "No logo uploaded",
+      "upload": "Upload Logo",
+      "change": "Change Logo",
+      "guidelines": "Guidelines",
+      "guideline": {
+        "format": "JPG, PNG, GIF format",
+        "size": "Maximum 2MB",
+        "resolution": "Recommended 200x200px"
+      }
+    }
+  },
+  "table": {
+    "header": {
+      "id": "ID",
+      "name": "Name",
+      "shortName": "Short name",
+      "address": "Address",
+      "city": "City",
+      "website": "Website",
+      "status": "Status",
+      "action": "Action"
+    }
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "filter": {
+    "allStatus": "All Status",
+    "name": "Name",
+    "active-filters": "Active filters",
+    "status": "Status"
   }
 }

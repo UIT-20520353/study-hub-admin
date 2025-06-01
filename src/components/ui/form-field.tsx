@@ -276,7 +276,6 @@ const FormField: React.FunctionComponent<FormFieldProps> = ({
           value={value}
           name={name}
           disabled={disabled}
-          required={required}
           aria-invalid={!!error}
           aria-describedby={
             error ? `${name}-error` : helperText ? `${name}-helper` : undefined

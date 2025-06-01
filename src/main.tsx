@@ -11,7 +11,15 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: "always",
+      refetchOnMount: true,
+    },
+  },
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

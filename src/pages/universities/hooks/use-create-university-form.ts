@@ -1,0 +1,219 @@
+import { useCreateUniversity } from "@/api/universityApi";
+import { EUniversityStatus } from "@/enums/university";
+import { useAppDispatch } from "@/store/hooks";
+import { openModal } from "@/store/slices/modalSlice";
+import { useFormik } from "formik";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
+import type { CreateUniversityForm } from "../types/form";
+
+const useCreateUniversityForm = () => {
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+  const { mutateAsync, isPending } = useCreateUniversity();
+
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+
+  const onSubmit = async (values: CreateUniversityForm) => {
+    try {
+      const formData = new FormData();
+
+      const universityData = {
+        ...values,
+        status: values.status || EUniversityStatus.ACTIVE,
+        address: values.address || undefined,
+        city: values.city || undefined,
+        website: values.website || undefined,
+        description: values.description || undefined,
+      };
+      const jsonBlob = new Blob([JSON.stringify(universityData)], {
+        type: "application/json",
+      });
+
+      formData.append("university", jsonBlob);
+
+      if (logoFile) {
+        formData.append("logo", logoFile);
+      }
+
+      await mutateAsync(formData);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      dispatch(
+        openModal({
+          title: t("error.title"),
+          content: error.message || t("error.generic"),
+          size: "sm",
+          type: "error",
+        })
+      );
+    }
+  };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .required(t("validation.university.name.required"))
+      .max(100, t("validation.university.name.maxLength")),
+    shortName: Yup.string()
+      .required(t("validation.university.shortName.required"))
+      .max(20, t("validation.university.shortName.maxLength")),
+    emailDomain: Yup.string()
+      .required(t("validation.university.emailDomain.required"))
+      .max(100, t("validation.university.emailDomain.maxLength"))
+      .matches(
+        /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        t("validation.university.emailDomain.invalid")
+      ),
+    address: Yup.string().max(
+      500,
+      t("validation.university.address.maxLength")
+    ),
+    city: Yup.string().max(50, t("validation.university.city.maxLength")),
+    website: Yup.string()
+      .max(100, t("validation.university.website.maxLength"))
+      .url(t("validation.university.website.invalid")),
+    description: Yup.string().max(
+      1000,
+      t("validation.university.description.maxLength")
+    ),
+    status: Yup.string()
+      .oneOf(Object.values(EUniversityStatus))
+      .required(t("validation.university.status.required")),
+  });
+
+  const formik = useFormik<CreateUniversityForm>({
+    initialValues: {
+      name: "",
+      shortName: "",
+      address: "",
+      emailDomain: "",
+      city: "",
+      website: "",
+      description: "",
+      status: EUniversityStatus.ACTIVE,
+    },
+    validationSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit,
+  });
+
+  const handleLogoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Validate file type
+      const allowedTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/gif",
+      ];
+      if (!allowedTypes.includes(file.type)) {
+        dispatch(
+          openModal({
+            title: t("validation.file.invalidType.title"),
+            content: t("validation.file.invalidType.content"),
+            size: "sm",
+            type: "error",
+          })
+        );
+        return;
+      }
+
+      // Validate file size (max 2MB)
+      const maxSize = 2 * 1024 * 1024; // 2MB
+      if (file.size > maxSize) {
+        dispatch(
+          openModal({
+            title: t("validation.file.sizeTooBig.title"),
+            content: t("validation.file.sizeTooBig.content"),
+            size: "sm",
+            type: "error",
+          })
+        );
+        return;
+      }
+
+      setLogoFile(file);
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setLogoPreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveLogo = () => {
+    setLogoFile(null);
+    setLogoPreview(null);
+  };
+
+  const formFields = [
+    {
+      name: "name",
+      type: "text",
+      label: t("university.field.label.name"),
+      placeholder: t("university.field.placeholder.name"),
+      required: true,
+    },
+    {
+      name: "shortName",
+      type: "text",
+      label: t("university.field.label.shortName"),
+      placeholder: t("university.field.placeholder.shortName"),
+      required: true,
+    },
+    {
+      name: "emailDomain",
+      type: "text",
+      label: t("university.field.label.emailDomain"),
+      placeholder: t("university.field.placeholder.emailDomain"),
+      required: true,
+      helperText: t("university.field.helper.emailDomain"),
+    },
+    {
+      name: "address",
+      type: "text",
+      label: t("university.field.label.address"),
+      placeholder: t("university.field.placeholder.address"),
+      required: false,
+    },
+    {
+      name: "city",
+      type: "text",
+      label: t("university.field.label.city"),
+      placeholder: t("university.field.placeholder.city"),
+      required: false,
+    },
+    {
+      name: "website",
+      type: "text",
+      label: t("university.field.label.website"),
+      placeholder: t("university.field.placeholder.website"),
+      required: false,
+    },
+    {
+      name: "description",
+      type: "text",
+      label: t("university.field.label.description"),
+      placeholder: t("university.field.placeholder.description"),
+      required: false,
+    },
+  ] as const;
+
+  return {
+    formik,
+    formFields,
+    isCreateLoading: isPending,
+    logoFile,
+    logoPreview,
+    handleLogoChange,
+    handleRemoveLogo,
+  };
+};
+
+export default useCreateUniversityForm;

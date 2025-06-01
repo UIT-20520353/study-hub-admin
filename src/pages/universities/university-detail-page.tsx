@@ -1,31 +1,89 @@
-import React, { useEffect, useState } from "react";
+import {
+  useChangeStatusUniversity,
+  useDeleteUniversity,
+  useGetUniversityDetail,
+} from "@/api/universityApi";
+import { LoadingPage } from "@/components/common";
+import { DATETIME_FORMAT, ROUTES } from "@/constants/app";
+import { EUniversityStatus } from "@/enums/university";
+import { cn } from "@/lib/utils";
+import type { IUniversity } from "@/types/university";
+import { format } from "date-fns";
 import { motion } from "framer-motion";
 import {
-  MapPin,
-  Globe,
-  Mail,
-  Users,
-  CheckCircle,
-  ExternalLink,
-  Clock,
-  Building,
-  GraduationCap,
   ArrowLeft,
+  Building,
+  CheckCircle,
+  Clock,
   Edit,
+  ExternalLink,
+  Globe,
+  GraduationCap,
+  Lock,
+  Mail,
+  MapPin,
+  Trash,
+  Unlock,
+  Users,
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router";
-import { useGetUniversityDetail } from "@/api/universityApi";
-import { LoadingPage } from "@/components/common";
-import type { IUniversity } from "@/types/university";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router";
+import UniversityStatus from "./components/university-status";
+import { DeleteUniversityPopup } from "./components/delete-university-popup";
+import { useAppDispatch } from "@/store/hooks";
+import { openModal } from "@/store/slices/modalSlice";
+import { ChangeStatusUniversityPopup } from "./components/change-status-university-popup";
 
 const UniversityDetailPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: response, isFetching } = useGetUniversityDetail(id || "");
+  const {
+    data: response,
+    isFetching,
+    refetch: refetchUniversity,
+  } = useGetUniversityDetail(id || "");
+  const { mutateAsync, isPending: isDeleting } = useDeleteUniversity();
+  const { mutateAsync: mutateChangeStatus, isPending: isChangingStatus } =
+    useChangeStatusUniversity();
 
   const [university, setUniversity] = useState<IUniversity | null>(null);
+  const [isOpenDeletePopup, setIsOpenDeletePopup] = useState<boolean>(false);
+  const [isOpenChangeStatusPopup, setIsOpenChangeStatusPopup] =
+    useState<boolean>(false);
+
+  const onConfirmChangeStatus = async (university: IUniversity) => {
+    await mutateChangeStatus(university, {
+      onSuccess: () => {
+        refetchUniversity();
+        setIsOpenChangeStatusPopup(false);
+        dispatch(
+          openModal({
+            title: t("common.success.title"),
+            content: t("university.changeStatus.success.content"),
+            type: "success",
+          })
+        );
+      },
+    });
+  };
+  const onConfirmDelete = async (id: string | number) => {
+    await mutateAsync(id, {
+      onSuccess: () => {
+        refetchUniversity();
+        setIsOpenDeletePopup(false);
+        dispatch(
+          openModal({
+            title: t("common.success.title"),
+            content: t("university.delete.success.content"),
+            type: "success",
+          })
+        );
+      },
+    });
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,14 +105,8 @@ const UniversityDetailPage: React.FC = () => {
     },
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("vi-VN", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  const onEditClick = (id: string | number) => {
+    navigate(ROUTES.universityEdit(id));
   };
 
   useEffect(() => {
@@ -69,6 +121,21 @@ const UniversityDetailPage: React.FC = () => {
     <LoadingPage />
   ) : (
     <div className="min-h-screen">
+      <DeleteUniversityPopup
+        isOpen={isOpenDeletePopup}
+        onClose={() => setIsOpenDeletePopup(false)}
+        university={university}
+        onConfirm={onConfirmDelete}
+        isLoading={isDeleting}
+      />
+      <ChangeStatusUniversityPopup
+        isOpen={isOpenChangeStatusPopup}
+        onClose={() => setIsOpenChangeStatusPopup(false)}
+        university={university}
+        onConfirm={onConfirmChangeStatus}
+        isLoading={isChangingStatus}
+      />
+
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -82,21 +149,71 @@ const UniversityDetailPage: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 transition-colors bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 hover:border-gray-400"
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 text-gray-700 transition-colors bg-white border border-gray-300 ",
+              "rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 hover:border-gray-400"
+            )}
             onClick={() => navigate(-1)}
           >
             <ArrowLeft size={18} />
             <span className="font-medium">{t("button.goBack")}</span>
           </motion.button>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-4 py-2 text-white transition-colors bg-blue-600 border border-blue-600 rounded-lg shadow-sm cursor-pointer hover:bg-blue-700 hover:border-blue-700"
-          >
-            <Edit size={18} />
-            <span className="font-medium">{t("button.edit")}</span>
-          </motion.button>
+          <div className="flex items-center gap-2">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 transition-colors border rounded-lg  text-white",
+                "shadow-sm cursor-pointer shadow-yellow-500/25",
+                {
+                  hidden: university.status === EUniversityStatus.DELETED,
+                  "bg-yellow-600 hover:bg-yellow-700":
+                    university.status === EUniversityStatus.ACTIVE,
+                  "bg-emerald-600 hover:bg-emerald-700":
+                    university.status === EUniversityStatus.INACTIVE,
+                }
+              )}
+              onClick={() => setIsOpenChangeStatusPopup(true)}
+            >
+              {university.status === EUniversityStatus.ACTIVE ? (
+                <Lock size={18} />
+              ) : (
+                <Unlock size={18} />
+              )}
+              <span className="font-medium">{t("button.changeStatus")}</span>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 transition-colors border rounded-lg  bg-red-600 text-white",
+                "shadow-sm cursor-pointer hover:bg-red-700 shadow-red-500/25",
+                {
+                  hidden: university.status === EUniversityStatus.DELETED,
+                }
+              )}
+              onClick={() => setIsOpenDeletePopup(true)}
+            >
+              <Trash size={18} />
+              <span className="font-medium">{t("button.delete")}</span>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 text-white transition-colors bg-blue-600 border border-blue-600 rounded-lg",
+                "shadow-sm cursor-pointer hover:bg-blue-700 hover:border-blue-700",
+                {
+                  hidden: university.status === EUniversityStatus.DELETED,
+                }
+              )}
+              onClick={() => onEditClick(university.id)}
+            >
+              <Edit size={18} />
+              <span className="font-medium">{t("button.edit")}</span>
+            </motion.button>
+          </div>
         </motion.div>
 
         <motion.div
@@ -178,8 +295,16 @@ const UniversityDetailPage: React.FC = () => {
                     <h3 className="mb-1 font-semibold text-gray-800">
                       {t("university.address")}
                     </h3>
-                    <p className="text-gray-600">{university.address}</p>
-                    <p className="text-sm text-gray-500">{university.city}</p>
+                    <p className="text-gray-600">
+                      {university.address || "--"}
+                    </p>
+                    <p
+                      className={cn("text-sm text-gray-500", {
+                        hidden: !university.city,
+                      })}
+                    >
+                      {university.city}
+                    </p>
                   </div>
                 </motion.div>
 
@@ -195,15 +320,21 @@ const UniversityDetailPage: React.FC = () => {
                     <h3 className="mb-1 font-semibold text-gray-800">
                       {t("university.website")}
                     </h3>
-                    <a
-                      href={university.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline"
-                    >
-                      {university.website}
-                      <ExternalLink size={14} />
-                    </a>
+                    {university.website ? (
+                      <a
+                        href={university.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline"
+                      >
+                        {university.website}
+                        <ExternalLink size={14} />
+                      </a>
+                    ) : (
+                      <span className="flex items-center gap-1 text-gray-500">
+                        --
+                      </span>
+                    )}
                   </div>
                 </motion.div>
 
@@ -249,17 +380,11 @@ const UniversityDetailPage: React.FC = () => {
                   <span className="text-gray-600">
                     {t("university.status")}
                   </span>
-                  <span
-                    className={`font-semibold px-2 py-1 rounded-full text-xs ${
-                      university.isActive
-                        ? "bg-green-200 text-green-800"
-                        : "bg-red-200 text-red-800"
-                    }`}
-                  >
-                    {university.isActive
-                      ? t("university.active")
-                      : t("university.inactive")}
-                  </span>
+                  <UniversityStatus
+                    showIcon={false}
+                    status={university.status}
+                    size="sm"
+                  />
                 </div>
               </div>
             </motion.div>
@@ -278,7 +403,7 @@ const UniversityDetailPage: React.FC = () => {
                     {t("university.createdAt")}
                   </label>
                   <p className="font-medium text-gray-700">
-                    {formatDate(university.createdAt)}
+                    {format(university.createdAt, DATETIME_FORMAT)}
                   </p>
                 </div>
                 <div>
@@ -286,7 +411,7 @@ const UniversityDetailPage: React.FC = () => {
                     {t("university.updatedAt")}
                   </label>
                   <p className="font-medium text-gray-700">
-                    {formatDate(university.updatedAt)}
+                    {format(university.updatedAt, DATETIME_FORMAT)}
                   </p>
                 </div>
               </div>

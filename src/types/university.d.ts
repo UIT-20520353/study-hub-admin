@@ -1,3 +1,5 @@
+import { EUniversityStatus } from "@/enums/university";
+
 export interface IUniversity {
   id: number;
   name: string;
@@ -11,4 +13,5 @@ export interface IUniversity {
   createdAt: string;
   updatedAt: string;
   emailDomain: string;
+  status: EUniversityStatus;
 }

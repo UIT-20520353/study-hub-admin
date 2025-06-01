@@ -25,7 +25,7 @@ const useLoginForm = () => {
       if (body.user.role === EUserRole.SYSTEM_ADMIN) {
         localStorage.setItem(ACCESS_TOKEN_KEY, body.token);
         dispatch(setUser(body.user));
-        navigate(ROUTES.home);
+        navigate(ROUTES.categories);
       } else {
         dispatch(
           openModal({
