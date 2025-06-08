@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export type ModalType = "success" | "error" | "info";
+export type ModalType = "success" | "error" | "info" | "default";
 
 export interface ModalState {
   isOpen: boolean;

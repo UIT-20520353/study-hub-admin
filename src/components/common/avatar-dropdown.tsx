@@ -1,15 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  User,
-  Settings,
-  LogOut,
-  Bell,
-  HelpCircle,
-  ChevronDown,
-} from "lucide-react";
-import { clsx } from "clsx";
 import type { IUser } from "@/types/user";
+import { clsx } from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, LogOut } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface AvatarDropdownProps {
@@ -25,10 +18,6 @@ interface AvatarDropdownProps {
 export const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
   user,
   onLogout,
-  onProfileClick,
-  onSettingsClick,
-  onNotificationsClick,
-  onHelpClick,
   className = "",
 }) => {
   const { t } = useTranslation();
@@ -73,33 +62,6 @@ export const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
     callback?.();
     setIsOpen(false);
   };
-
-  const menuItems = [
-    {
-      icon: User,
-      label: "Hồ sơ cá nhân",
-      onClick: onProfileClick,
-      className: "text-gray-700 hover:text-blue-600",
-    },
-    {
-      icon: Bell,
-      label: "Thông báo",
-      onClick: onNotificationsClick,
-      className: "text-gray-700 hover:text-blue-600",
-    },
-    {
-      icon: Settings,
-      label: "Cài đặt",
-      onClick: onSettingsClick,
-      className: "text-gray-700 hover:text-blue-600",
-    },
-    {
-      icon: HelpCircle,
-      label: "Trợ giúp",
-      onClick: onHelpClick,
-      className: "text-gray-700 hover:text-blue-600",
-    },
-  ];
 
   return (
     <div className={clsx("relative z-30", className)} ref={dropdownRef}>
@@ -178,23 +140,6 @@ export const AvatarDropdown: React.FC<AvatarDropdownProps> = ({
                   <p className="text-sm text-gray-500 truncate">{user.email}</p>
                 </div>
               </div>
-            </div>
-
-            <div className="py-1">
-              {menuItems.map((item, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleMenuItemClick(item.onClick)}
-                  className={clsx(
-                    "w-full flex items-center px-4 py-2.5 text-sm transition-colors duration-150",
-                    "hover:bg-gray-50 focus:outline-none focus:bg-gray-50",
-                    item.className
-                  )}
-                >
-                  <item.icon className="w-4 h-4 mr-3" />
-                  <span>{item.label}</span>
-                </button>
-              ))}
             </div>
 
             <div className="py-1">

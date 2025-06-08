@@ -3,6 +3,7 @@ import type { ModalType } from "@/store/slices/modalSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, CheckCircle2, Info, X } from "lucide-react";
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 
 interface ModalHeaderProps {
   title?: string;
@@ -41,6 +42,12 @@ const typeStyles = {
     borderColor: "border-blue-500",
     bgColor: "bg-blue-50",
   },
+  default: {
+    icon: Info,
+    iconColor: "text-gray-500",
+    borderColor: "border-gray-300",
+    bgColor: "bg-white",
+  },
 };
 
 const ModalHeader = ({
@@ -48,7 +55,7 @@ const ModalHeader = ({
   showCloseButton = true,
   onClose,
   className,
-  type = "info",
+  type = "default",
 }: ModalHeaderProps) => {
   if (!title && !showCloseButton) return null;
 
@@ -78,6 +85,18 @@ export const Modal = ({
   closeOnBackdropClick = true,
   type = "info",
 }: ModalProps) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -87,7 +106,7 @@ export const Modal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeOnBackdropClick ? onClose : undefined}
-            className="fixed inset-0 z-50 bg-black/50"
+            className="fixed inset-0 z-50 min-h-screen bg-black/60"
           />
 
           <motion.div

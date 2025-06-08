@@ -270,5 +270,91 @@
     "name": "Tên",
     "active-filters": "Bộ lọc đang hoạt động",
     "status": "Trạng thái"
+  },
+  "category": {
+    "management": {
+      "title": "Quản lý danh mục",
+      "subtitle": "Quản lý các danh mục trong hệ thống"
+    },
+    "create": {
+      "button": "Thêm danh mục",
+      "title": "Tạo danh mục mới",
+      "subtitle": "Thêm danh mục mới vào hệ thống",
+      "success": {
+        "title": "Thành công",
+        "content": "Danh mục đã được tạo thành công!"
+      },
+      "error": {
+        "title": "Lỗi",
+        "content": "Không thể tạo danh mục. Vui lòng thử lại."
+      }
+    },
+    "edit": {
+      "title": "Chỉnh sửa danh mục",
+      "subtitle": "Cập nhật thông tin danh mục",
+      "success": {
+        "title": "Thành công",
+        "content": "Danh mục đã được cập nhật thành công!"
+      },
+      "error": {
+        "title": "Lỗi",
+        "content": "Không thể cập nhật danh mục. Vui lòng thử lại."
+      }
+    },
+    "delete": {
+      "title": "Xóa danh mục",
+      "subtitle": "Hành động này không thể được hoàn tác",
+      "content": "Bạn có chắc chắn muốn xóa danh mục ",
+      "warning": {
+        "title": "Cảnh báo",
+        "line1": "Tất cả dữ liệu liên quan sẽ bị xóa",
+        "line2": "Hành động này không thể được hoàn tác"
+      },
+      "success": {
+        "content": "Danh mục đã được xóa thành công!"
+      },
+      "error": {
+        "title": "Lỗi",
+        "content": "Không thể xóa danh mục. Vui lòng thử lại."
+      }
+    },
+    "search": {
+      "placeholder": "Tìm kiếm danh mục..."
+    },
+    "filter": {
+      "allTypes": "Tất cả loại",
+      "type": "Loại"
+    },
+    "table": {
+      "header": {
+        "id": "ID",
+        "name": "Tên danh mục",
+        "type": "Loại",
+        "createdAt": "Ngày tạo",
+        "action": "Hành động"
+      }
+    },
+    "type": {
+      "topic": "Chủ đề",
+      "product": "Sản phẩm"
+    },
+    "field": {
+      "label": {
+        "name": "Tên danh mục",
+        "type": "Loại danh mục"
+      },
+      "placeholder": {
+        "name": "Nhập tên danh mục"
+      }
+    },
+    "validation": {
+      "name": {
+        "required": "Tên danh mục là bắt buộc",
+        "maxLength": "Tên danh mục không được vượt quá 100 ký tự"
+      },
+      "type": {
+        "required": "Loại danh mục là bắt buộc"
+      }
+    }
   }
 }

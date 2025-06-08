@@ -272,5 +272,91 @@
     "name": "Name",
     "active-filters": "Active filters",
     "status": "Status"
+  },
+  "category": {
+    "management": {
+      "title": "Category Management",
+      "subtitle": "Manage categories in the system"
+    },
+    "create": {
+      "button": "Add Category",
+      "title": "Create New Category",
+      "subtitle": "Add a new category to the system",
+      "success": {
+        "title": "Success",
+        "content": "Category created successfully!"
+      },
+      "error": {
+        "title": "Error",
+        "content": "Failed to create category. Please try again."
+      }
+    },
+    "edit": {
+      "title": "Edit Category",
+      "subtitle": "Update category information",
+      "success": {
+        "title": "Success",
+        "content": "Category updated successfully!"
+      },
+      "error": {
+        "title": "Error",
+        "content": "Failed to update category. Please try again."
+      }
+    },
+    "delete": {
+      "title": "Delete Category",
+      "subtitle": "This action cannot be undone",
+      "content": "Are you sure you want to delete category ",
+      "warning": {
+        "title": "Warning",
+        "line1": "All related data will be deleted",
+        "line2": "This action cannot be undone"
+      },
+      "success": {
+        "content": "Category has been deleted successfully!"
+      },
+      "error": {
+        "title": "Error",
+        "content": "Failed to delete category. Please try again."
+      }
+    },
+    "search": {
+      "placeholder": "Search categories..."
+    },
+    "filter": {
+      "allTypes": "All Types",
+      "type": "Type"
+    },
+    "table": {
+      "header": {
+        "id": "ID",
+        "name": "Category Name",
+        "type": "Type",
+        "createdAt": "Created Date",
+        "action": "Action"
+      }
+    },
+    "type": {
+      "topic": "Topic",
+      "product": "Product"
+    },
+    "field": {
+      "label": {
+        "name": "Category Name",
+        "type": "Category Type"
+      },
+      "placeholder": {
+        "name": "Enter category name"
+      }
+    },
+    "validation": {
+      "name": {
+        "required": "Category name is required",
+        "maxLength": "Category name must not exceed 100 characters"
+      },
+      "type": {
+        "required": "Category type is required"
+      }
+    }
   }
 }
